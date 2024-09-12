@@ -6,15 +6,55 @@
 
 body{
     font-family: "Oswald", sans-serif;
+    background-color: #222222;
 }
 
 header{
     text-align: center;
+
+    h1{
+        text-shadow: 0.3px 0.5px 0.5px rgba(0, 0, 0, 0.486);
+    }
+
+    button, select, input{
+        padding: 5px 10px;
+        margin: 7px;
+        
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.486);
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        
+        border: 1px solid black;
+    }
+    
+}
+
+main{
+    table, tr, th, td{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        padding: 5px 50px;
+        border: 2px solid black;
+        border-collapse: collapse;
+
+        text-align: center;
+        font-size: 13px;
+        background-color: #272626;
+        color: #fff;
+    }
+
+    th{
+        background-color: rgba(0, 0, 0, 0.486);
+    }
 }
 
 footer {
     font-size: small;
-    background-color: #333;
+    background-color: #111010;
     color: white;
     text-align: center;
     padding: 3px 0;
