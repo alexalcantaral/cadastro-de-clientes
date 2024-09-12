@@ -20,7 +20,7 @@
             <button id="botao-atualizar">Atualizar cadastro de cliente</button>
             <button id="botao-remover">Remover cliente</button>
             
-            <select id="palavra" name="palavra">
+            <select id="selecionar-opcao" name="palavra">
                 <option value="filtar">Filtrar</option>
                 <option value="nome">Nome</option>
                 <option value="id">ID</option>
@@ -30,25 +30,41 @@
             </select>
     
             <label for="nome">Pesquisar:</label>
-            <input type="text" name="nome" placeholder="Nome, ID ou Idade">
+            <input type="text" name="nome" id="buscar-nome" placeholder="Nome, ID ou Idade">
     </header>
     <main>
-        <table>
-            <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Telefone</th>
-                <th>Cidade</th>
-                <th>ID</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+        <table id="tabela-registro">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Telefone</th>
+                    <th>Cidade</th>
+                    <th>ID</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>        
+        
+        <div id="modal-adicionar" class="modal">
+            <div class="modal-content">
+                <span id="fechar-modal" class="fechar">&times;</span>
+                <h2>Adicionar Cliente</h2>
+                <form id="form-adicionar-cliente">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" required><br>
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" required><br>
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" id="telefone" required><br>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" required><br>
+                    <label for="id">ID:</label>
+                    <input type="text" id="id" required><br>
+                    <button type="submit">Adicionar</button>
+                </form>
+            </div>
+        </div>
     </main>
     <footer>
         <p>Todos os direitos reservados a Alex Alcantara Leite <a href="https://www.instagram.com/alexalcantaral/" target="_blank"><i class="fa-brands fa-instagram"></i></a> <a href="https://github.com/alexalcantaral" target="_blank"><i class="fa-brands fa-github"></i></a></p>
