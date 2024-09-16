@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ids = clientes.map(cliente => cliente.id);
         const idsDisponiveis = [];
 
-        // Verifica IDs disponíveis
         for (let i = 1; i <= ids.length + 1; i++) {
             if (!ids.includes(i)) {
                 idsDisponiveis.push(i);
@@ -29,16 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (idsDisponiveis.length > 0) {
-            return idsDisponiveis[0]; // Retorna o menor ID disponível
+            return idsDisponiveis[0];
         } else {
-            return ids.length + 1; // Se não houver ID disponível, retorna o próximo número
+            return ids.length + 1;
         }
     }
 
     function renderizarTabela() {
         const clientes = carregarDadosLocalStorage();
 
-        // Ordena clientes por ID
         clientes.sort((a, b) => a.id - b.id);
 
         tabelaBody.innerHTML = '';
