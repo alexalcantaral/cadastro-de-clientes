@@ -6,47 +6,43 @@
 
 body{
     font-family: "Oswald", sans-serif;
-    background-color: #222222;
+    background-color: #333336;
 }
 
 .modal {
     display: none;
-    margin: auto;
-    z-index: 1;
-    left: 0;
-    top: 0;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
     width: 30%;
-    height: 40%;
+    height: auto; 
+    padding: 20px;
+    color: #fff
 }
 
 .modal-content {
-    border: 1px solid #888;
-    padding: 20px 10px;
+    background-color: rgba(0, 0, 0, 0.623); 
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content button, select, input{
+    padding: 5px 10px;
     margin: 7px;
-    
     color: #fff;
     background-color: rgba(0, 0, 0, 0.486);
     text-transform: uppercase;
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    
     border: 1px solid black;
-
-    button{
-        padding: 5px 10px;
-        margin: 7px;
-        
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.486);
-        text-transform: uppercase;
-        font-size: 13px;
-        font-weight: bold;
-        cursor: pointer;
-        
-        border: 1px solid black;
-    }
 }
+
 
 .fechar {
     color: #aaa;
@@ -117,6 +113,10 @@ footer {
 
     a{
         color: white;
+        transition: color 0.3s ease;
+    }
+    a:hover {
+        color: #0004ff;
     }
   }
   
