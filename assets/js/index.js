@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const botaoAdicionar = document.querySelector("#botao-adicionar");
-    const modalAdicionar = document.querySelector('#modal-adicionar');
-    const fecharModalAdicionar = document.querySelector('#fechar-modal');
-    const formAdicionarCliente = document.querySelector('#form-adicionar-cliente');
-    const tabelaBody = document.querySelector('#tabela-registro tbody');
-
     const botaoRemover = document.querySelector("#botao-remover");
+    const modalAdicionar = document.querySelector('#modal-adicionar');
     const modalRemover = document.querySelector('#modal-remover');
+    const fecharModalAdicionar = document.querySelector('#fechar-modal');
     const fecharModalRemover = document.querySelector('#fechar-modal-remover');
+    const formAdicionarCliente = document.querySelector('#form-adicionar-cliente');
     const formRemoverCliente = document.querySelector('#form-remover-cliente');
+    const tabelaBody = document.querySelector('#tabela-registro tbody');
 
     function salvarDadosLocalStorage(clientes) {
         localStorage.setItem('clientes', JSON.stringify(clientes));
@@ -18,8 +17,30 @@ document.addEventListener('DOMContentLoaded', () => {
         return JSON.parse(localStorage.getItem('clientes')) || [];
     }
 
+    function gerarNovoId(clientes) {
+        const ids = clientes.map(cliente => cliente.id);
+        const idsDisponiveis = [];
+
+        // Verifica IDs disponíveis
+        for (let i = 1; i <= ids.length + 1; i++) {
+            if (!ids.includes(i)) {
+                idsDisponiveis.push(i);
+            }
+        }
+
+        if (idsDisponiveis.length > 0) {
+            return idsDisponiveis[0]; // Retorna o menor ID disponível
+        } else {
+            return ids.length + 1; // Se não houver ID disponível, retorna o próximo número
+        }
+    }
+
     function renderizarTabela() {
         const clientes = carregarDadosLocalStorage();
+
+        // Ordena clientes por ID
+        clientes.sort((a, b) => a.id - b.id);
+
         tabelaBody.innerHTML = '';
 
         clientes.forEach(cliente => {
@@ -34,22 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Abertura e fechamento do modal de adicionar
     botaoAdicionar.addEventListener('click', () => {
         modalAdicionar.style.display = 'block';
+    });
+
+    botaoRemover.addEventListener('click', () => {
+        modalRemover.style.display = 'block';
     });
 
     fecharModalAdicionar.addEventListener('click', () => {
         modalAdicionar.style.display = 'none';
     });
 
+    fecharModalRemover.addEventListener('click', () => {
+        modalRemover.style.display = 'none';
+    });
+
     window.addEventListener('click', (event) => {
         if (event.target === modalAdicionar) {
             modalAdicionar.style.display = 'none';
         }
+        if (event.target === modalRemover) {
+            modalRemover.style.display = 'none';
+        }
     });
 
-    // Submissão do formulário de adicionar cliente
     formAdicionarCliente.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -57,11 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const idade = document.querySelector('#idade').value;
         const telefone = document.querySelector('#telefone').value;
         const cidade = document.querySelector('#cidade').value;
-        const id = document.querySelector('#id').value;
 
         const clientes = carregarDadosLocalStorage();
 
-        clientes.push({ nome, idade, telefone, cidade, id });
+        const novoId = gerarNovoId(clientes);
+
+        clientes.push({ nome, idade, telefone, cidade, id: novoId });
 
         salvarDadosLocalStorage(clientes);
 
@@ -71,52 +102,23 @@ document.addEventListener('DOMContentLoaded', () => {
         formAdicionarCliente.reset();
     });
 
-    // Abertura e fechamento do modal de remover
-    botaoRemover.addEventListener('click', () => {
-        modalRemover.style.display = 'block';
-    });
-
-    fecharModalRemover.addEventListener('click', () => {
-        modalRemover.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modalRemover) {
-            modalRemover.style.display = 'none';
-        }
-    });
-
-    // Submissão do formulário de remover cliente
     formRemoverCliente.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        const tipoRemover = document.querySelector('#opcao-remover').value;
-        const valorRemover = document.querySelector('#valor-remover').value.trim();
+        const opcao = document.querySelector('#opcao-remover').value;
+        const valor = document.querySelector('#valor-remover').value;
+
         let clientes = carregarDadosLocalStorage();
 
-        if (tipoRemover === 'nome') {
-            const clientesFiltrados = clientes.filter(cliente => cliente.nome.toLowerCase() !== valorRemover.toLowerCase());
-
-            if (clientesFiltrados.length === clientes.length) {
-                alert('Nenhum cliente encontrado com esse nome.');
-            } else {
-                clientes = clientesFiltrados;
-                salvarDadosLocalStorage(clientes);
-                renderizarTabela();
-                alert(`Cliente com nome "${valorRemover}" removido com sucesso!`);
-            }
-        } else if (tipoRemover === 'id') {
-            const clientesFiltrados = clientes.filter(cliente => cliente.id !== valorRemover);
-
-            if (clientesFiltrados.length === clientes.length) {
-                alert('Nenhum cliente encontrado com esse ID.');
-            } else {
-                clientes = clientesFiltrados;
-                salvarDadosLocalStorage(clientes);
-                renderizarTabela();
-                alert(`Cliente com ID "${valorRemover}" removido com sucesso!`);
-            }
+        if (opcao === 'nome') {
+            clientes = clientes.filter(cliente => cliente.nome.toLowerCase() !== valor.toLowerCase());
+        } else if (opcao === 'id') {
+            clientes = clientes.filter(cliente => cliente.id !== parseInt(valor, 10));
         }
+
+        salvarDadosLocalStorage(clientes);
+
+        renderizarTabela();
 
         modalRemover.style.display = 'none';
         formRemoverCliente.reset();
