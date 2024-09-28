@@ -122,5 +122,48 @@ document.addEventListener('DOMContentLoaded', () => {
         formRemoverCliente.reset();
     });
 
+    const botaoAtualizar = document.querySelector("#botao-atualizar");
+    const modalAtualizar = document.querySelector('#modal-atualizar');
+    const fecharModalAtualizar = document.querySelector('#fechar-modal-atualizar');
+    const formAtualizarCliente = document.querySelector('#form-atualizar-cliente');
+
+    botaoAtualizar.addEventListener('click', () => {
+        modalAtualizar.style.display = 'block';
+    });
+
+    fecharModalAtualizar.addEventListener('click', () => {
+        modalAtualizar.style.display = 'none';
+    });
+
+    formAtualizarCliente.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const id = parseInt(document.querySelector('#id-atualizar').value, 10);
+        const nome = document.querySelector('#nome-atualizar').value;
+        const idade = document.querySelector('#idade-atualizar').value;
+        const telefone = document.querySelector('#telefone-atualizar').value;
+        const cidade = document.querySelector('#cidade-atualizar').value;
+
+        let clientes = carregarDadosLocalStorage();
+        const clienteIndex = clientes.findIndex(cliente => cliente.id === id);
+
+        if (clienteIndex !== -1) {
+            // Atualiza as informações do cliente
+            if (nome) clientes[clienteIndex].nome = nome;
+            if (idade) clientes[clienteIndex].idade = idade;
+            if (telefone) clientes[clienteIndex].telefone = telefone;
+            if (cidade) clientes[clienteIndex].cidade = cidade;
+
+            salvarDadosLocalStorage(clientes);
+            renderizarTabela();
+        } else {
+            alert('Cliente não encontrado.');
+        }
+
+        modalAtualizar.style.display = 'none';
+        formAtualizarCliente.reset();
+    });
+
+
     renderizarTabela();
 });

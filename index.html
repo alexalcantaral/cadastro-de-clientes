@@ -14,22 +14,19 @@
 <body>
     <header>
         <h1>Cadastro de clientes</h1>
-            
-            <button id="botao-adicionar">Adicionar cliente</button>
-            <button id="botao-atualizar">Atualizar cadastro de cliente</button>
-            <button id="botao-remover">Remover cliente</button>
-            
-            <select id="selecionar-opcao" name="palavra">
-                <option value="filtar">Filtrar</option>
-                <option value="nome">Nome</option>
-                <option value="id">ID</option>
-                <option value="idade">Idade</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-            </select>
+        <button id="botao-adicionar">Adicionar cliente</button>
+        <button id="botao-atualizar">Atualizar cadastro de cliente</button>
+        <button id="botao-remover">Remover cliente</button>
+        
+        <select id="selecionar-opcao" name="palavra">
+            <option value="filtar">Filtrar</option>
+            <option value="nome">Nome</option>
+            <option value="id">ID</option>
+            <option value="idade">Idade</option>
+        </select>
     
-            <label for="nome">Pesquisar:</label>
-            <input type="text" name="nome" id="buscar-nome" placeholder="Nome, ID ou Idade">
+        <label for="nome">Pesquisar:</label>
+        <input type="text" name="nome" id="buscar-nome" placeholder="Nome, ID ou Idade">
     </header>
     <main>
         <table id="tabela-registro">
@@ -80,6 +77,25 @@
             </div>
         </div>
 
+        <div id="modal-atualizar" class="modal">
+            <div class="modal-content">
+                <span id="fechar-modal-atualizar" class="fechar">&times;</span>
+                <h2>Atualizar Cadastro de Cliente</h2>
+                <form id="form-atualizar-cliente">
+                    <label for="id-atualizar">ID do Cliente:</label>
+                    <input type="number" id="id-atualizar" required placeholder="Digite o ID"><br>
+                    <label for="nome-atualizar">Nome:</label>
+                    <input type="text" id="nome-atualizar"><br>
+                    <label for="idade-atualizar">Idade:</label>
+                    <input type="number" id="idade-atualizar"><br>
+                    <label for="telefone-atualizar">Telefone:</label>
+                    <input type="text" id="telefone-atualizar"><br>
+                    <label for="cidade-atualizar">Cidade:</label>
+                    <input type="text" id="cidade-atualizar"><br>
+                    <button type="submit">Atualizar</button>
+                </form>
+            </div>
+        </div>
     </main>
     <footer>
         <p>Todos os direitos reservados a Alex Alcantara Leite <a href="https://www.instagram.com/alexalcantaral/" target="_blank"><i class="fa-brands fa-instagram"></i></a> <a href="https://github.com/alexalcantaral" target="_blank"><i class="fa-brands fa-github"></i></a></p>

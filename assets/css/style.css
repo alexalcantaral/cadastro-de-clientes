@@ -9,6 +9,10 @@ body{
     background-color: #333336;
 }
 
+#tabela-registro{
+    width: 70%;
+}
+
 .modal {
     display: none;
     position: fixed;
